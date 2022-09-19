@@ -1,0 +1,65 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+
+
+.flex-container {
+    display: flex;
+    justify-content: end;
+}
+
+td {
+    width: 150px;
+    text-align: left;
+    padding: 5px;
+}
+
+table {
+    border-spacing: 0 15px;
+}
+
+.navbar {
+    width: 90%;
+    margin: 0 auto;
+    height: 10%;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: white;
+    padding-top: 1.5em;
+}
+
+.jumbotron {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.featuredVehicle {
+    border: 3px solid;
+    margin: 3%;
+    text-align: center;
+}
+

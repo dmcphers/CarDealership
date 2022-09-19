@@ -1,0 +1,55 @@
+﻿@model IEnumerable<GuildCars.UI.Models.UserViewModel>
+
+@{
+    ViewBag.Title = "Users";
+}
+
+<h2 style="margin: 1em 0 1em 0">Users</h2>
+
+<p style="margin-bottom: 1em"><strong><a href="@Url.Action("AddUser","Admin")"><u>Add a new User</u></a></strong></p>
+
+<table class="table table-striped" style="border: 1px solid">
+    <thead>
+        <tr>
+            <th>
+                Last Name
+            </th>
+            <th>
+                First Name
+            </th>
+            <th>
+                Email
+            </th>
+
+            <th>
+                Role
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.User.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.User.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.User.Email)
+                </td>
+                <td>
+                    @Html.DropDownListFor(m => item.Roles, item.Roles, new { @disabled = "disabled" })
+                </td>
+                <td>
+                    <p class="item-details"><a class="detail-link" href="@Url.Action("EditUser", new { item.User.Id })">Edit </a> </p>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

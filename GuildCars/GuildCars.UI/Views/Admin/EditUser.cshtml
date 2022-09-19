@@ -1,0 +1,59 @@
+﻿@model GuildCars.UI.Models.EditUserViewModel
+@{
+    ViewBag.Title = "EditUser";
+}
+
+<h2 style="margin: 2em 0 1em 0">Edit User</h2>
+
+@using (Html.BeginForm("EditUser", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.User.Id)
+    <div class="container">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label>First Name</label>
+                @Html.TextBoxFor(m => m.User.FirstName, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group col-md-4">
+                <label>Last Name</label>
+                @Html.TextBoxFor(m => m.User.LastName, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label>Email</label>
+                @Html.TextBoxFor(m => m.User.Email, new { @class = "form-control" })
+            </div>
+            <div class="form-group col-md-4" style="padding-top:10px;">
+                <div><label>Role</label></div>
+                @Html.DropDownListFor(m => m.Role, (SelectList)ViewBag.Name)
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label>Password</label>
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            </div>
+            <div class="form-group col-md-4">
+                <label>Confirm Password</label>
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="form-group">
+            <div id="submitButton" class="col-md-2">
+                <input type="submit" value="Save" class="btn btn-outline-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+

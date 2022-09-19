@@ -1,0 +1,92 @@
+﻿@model GuildCars.Models.Tables.Contact
+
+@{
+    ViewBag.Title = "Contact";
+}
+
+<hr />
+<h2 style="margin-bottom: 1em">Contact Us</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        @using (Html.BeginForm("Contact", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "formAddContact", onsubmit = "return validateRecaptcha();" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label>Contact Name</label>
+                    @Html.TextBoxFor(m => m.ContactName, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control contact-group", @id = "EmailAddress" })
+                </div>
+
+                <div class="form-group">
+                    <label for="Phone">Phone</label>
+                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control contact-group", @id = "PhoneNumber" })
+                </div>
+                <div class="form-group">
+                    <label for="Message">Message</label>
+                    @Html.TextAreaFor(m => m.Message, new { @rows = "3", @class = "form-control VINNumber", @id = "message" })
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10" style="padding-left:0px;">
+                        <input type="submit" value="Submit" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-md-4 map-form">
+        <div id="map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d6836.588713649723!2d-97.41893111181355!3d31.04590407140909!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1640230733273!5m2!1sen!2sus" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        <div style="margin-top: 1em">
+            <p>111 W Main Street</p>
+            <p>Austin TX 44444</p>
+            <p style="margin-top: 2em">Sales: 555-555-5555</p>
+            <p>Service: 555-555-5550</p>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const VINNUMBER = urlParams.get('VINNumber');
+            $("#message").val(VINNUMBER);
+            contactValidate();
+        });
+        function contactValidate() {
+            $('#formAddContact').validate({
+                rules: {
+                    'ContactName': {
+                        required: true,
+                        minlength: 2
+                    },
+                    'Message': {
+                        required: true
+                    },
+                    'EmailAddress': {
+                        require_from_group: [1, ".contact-group"],
+                        email: true
+                    },
+                    'PhoneNumber': {
+                        require_from_group: [1, ".contact-group"],
+                        number: true
+                    }
+                }
+
+            });
+        }
+
+    </script>
+}
+
+

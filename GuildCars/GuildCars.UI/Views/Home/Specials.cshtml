@@ -1,0 +1,23 @@
+﻿@model IEnumerable<GuildCars.Models.Tables.Special>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 style="margin-top: 1.5em; margin-bottom: 1em">Specials</h2>
+<div class="col-xs-12 flex-container" style="display: flex; flex-direction: column">
+    @foreach (var special in Model)
+    {
+        <div class="row" style="border: 1px solid; margin: 1em 0 1em 0; padding-top: 1em">
+            <div class="specialimage col-xs-1">
+                <img src="@Url.Content("~/Images/" + "dollar-sign-icon.png")" alt="" style="margin:0 20px 20px 0">
+            </div>
+            <div class="specialText col-xs-11">
+                <p style="padding-top: 1em"><strong>@special.SpecialTitle</strong></p>
+                <p style="padding-top: 1em">@special.SpecialDescription</p>
+            </div>
+        </div>
+    }
+</div>
+

@@ -1,0 +1,168 @@
+﻿@model GuildCars.UI.Models.VehicleAddViewModel
+@{
+    ViewBag.Title = "AddVehicle";
+}
+
+<h2 style="margin: 2em 0 2em 0">Add Vehicle</h2>
+
+@using (Html.BeginForm("AddVehicle", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", id = "formAddVehicle" }))
+{
+    @Html.ValidationSummary()
+    <div class="container">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label>Make</label>
+                @Html.DropDownListFor(m => m.Vehicle.MakeID, Model.Makes, new { @class = "form-control", @id = "makeselect" })
+            </div>
+            <div class="form-group col-md-4">
+                <label>Model</label>
+                @Html.DropDownListFor(m => m.Vehicle.ModelID, Model.Models, new { @class = "form-control", @id = "modelselect" })
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="Type">Condition Type</label>
+                @Html.DropDownListFor(m => m.Vehicle.ConditionTypeID, Model.ConditionTypes, new { @class = "form-control" })
+            </div>
+            <div class="form-group col-md-4">
+                <label for="Body Style">Body Style</label>
+                @Html.DropDownListFor(m => m.Vehicle.BodyStyleID, Model.BodyStyles, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="Year">Year</label>
+                @Html.TextBoxFor(m => m.Vehicle.Year, new { @class = "form-control", @type = "number" })
+            </div>
+            <div class="form-group col-md-4">
+                <label for="Transmission">Transmission</label>
+                @Html.DropDownListFor(m => m.Vehicle.TransmissionID, Model.Transmissions, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="Color">Exterior Color</label>
+                @Html.DropDownListFor(m => m.Vehicle.ExteriorColorID, Model.ExteriorColors, new { @class = "form-control" })
+            </div>
+            <div class="form-group col-md-4">
+                <label for="Interior">Interior Color</label>
+                @Html.DropDownListFor(m => m.Vehicle.InteriorColorID, Model.InteriorColors, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="Mileage">Mileage</label>
+                @Html.TextBoxFor(m => m.Vehicle.Mileage, new { @class = "form-control", @type = "number" })
+            </div>
+            <div class="form-group col-md-4">
+                <label for="VIN">VIN #</label>
+                @Html.TextBoxFor(m => m.Vehicle.VINNumber, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="MSRP">MSRP</label>
+                @Html.TextBoxFor(m => m.Vehicle.MSRP, new { @class = "form-control", @type = "number", @id = "MSRP" })
+            </div>
+            <div class="form-group col-md-4">
+                <label for="SalePrice">Sale Price</label>
+                @Html.TextBoxFor(m => m.Vehicle.SalePrice, new { @class = "form-control", @type = "number", @id = "SalePrice" })
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="Description">Description</label>
+                @Html.TextAreaFor(m => m.Vehicle.Description, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label>Picture</label>
+                <input id="ImageUpload" type="file" name="ImageUpload" class="form-control" />
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <div id="submitButton" class="col-md-2" style="padding-left:0px;">
+                    <input type="submit" value="Save" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            models($('#makeselect').val());
+            $('#makeselect').change(function (e) {
+                models($('#makeselect').val());
+                return false;
+            });
+        });
+        function models(id) {
+            $.ajax({
+                type: 'GET',
+                url: 'https://localhost:44341/api/admin/model/' + id,
+                success: function (results) {
+                    //clear the model results
+                    $('#modelselect').empty();
+                    //add model results
+                    $.each(results, function (index, make) {
+                        var html = "<option value=" + make.ModelID + ">" + make.ModelName + "</option>";
+                        $('#modelselect').append(html);
+                    });
+                },
+                error: function () {
+                    alert("Error performing search, try again later");
+                }
+            });
+        }
+                                                                                                                                                //function vehicleValidate() {
+                                                                                                                                                //    $('#formAddVehicle').validate({
+                                                                                                                                                //        rules: {
+                                                                                                                                                //            'Vehicle.VINNumber': {
+                                                                                                                                                //                required: true
+                                                                                                                                                //            },
+                                                                                                                                                //            'Vehicle.Description': {
+                                                                                                                                                //                required: true
+                                                                                                                                                //            },
+                                                                                                                                                //            'Vehicle.MSRP': {
+                                                                                                                                                //                required: true,
+                                                                                                                                                //                number: true
+                                                                                                                                                //            },
+                                                                                                                                                //            'Vehicle.SalePrice': {
+                                                                                                                                                //                required: true,
+                                                                                                                                                //                number: true
+                                                                                                                                                //            },
+                                                                                                                                                //            'Vehicle.Mileage': {
+                                                                                                                                                //                required: true,
+                                                                                                                                                //                number: true
+                                                                                                                                                //            },
+                                                                                                                                                //            'ImageUpload': {
+                                                                                                                                                //                required: true
+                                                                                                                                                //            }
+                                                                                                                                                //        }
+                                                                                                                                                //    });
+                                                                                                                                                //}
+    </script>
+}

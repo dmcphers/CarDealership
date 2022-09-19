@@ -1,0 +1,58 @@
+﻿@model GuildCars.Models.Queries.VehicleItem
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="row" style="margin-top: 10px">
+    <div class="col-xs-12">
+        <h2>Vehicle Details</h2>
+    </div>
+</div>
+
+<div class="container" style="border: solid">
+    <div class="row" style="padding-right: 1em; padding-top: 1em">
+        <div class="col-xs-12 col-sm-12 col-md-3" style="text-align: center; padding-top: 2em">
+            <span><strong>@Model.Year @Model.MakeName @Model.ModelName</strong></span>
+            <img src="@Url.Content("~/Images/" + Model.ImageFileName)" />
+        </div>
+        <div>
+            <div class="column item-text col-xs-3">
+                <p class="item-description"><span style="font-weight: bold">Body Style: </span> @Model.BodyStyleName </p>
+                <p class="item-description"><span style="font-weight: bold">Trans: </span>@Model.TransmissionName </p>
+                <p class="item-description"><span style="font-weight: bold">Color: </span> @Model.ExteriorColorName </p>
+
+            </div>
+            <div class="column item-text col-xs-3">
+                <p class="item-description"><span style="font-weight: bold">Interior: </span>@Model.InteriorColorName </p>
+                <p class="item-description"><span style="font-weight: bold">Mileage: </span>@Model.Mileage </p>
+                <p class="item-description"><span style="font-weight: bold">VIN #: </span>@Model.VINNumber </p>
+            </div>
+            <div class="column item-text col-xs-3">
+                <p class="item-description money"><span style="font-weight: bold">Sale Price: </span>@Model.SalePrice.Value.ToString("c")</p>
+                <p class="item-description money"><span style="font-weight: bold">MSRP: </span>@Model.MSRP.Value.ToString("c")</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row" style="padding-top: 2em; padding-left: 2em; padding-right: 2em">
+        <div class="col-xs-12 flex-container">
+            <p>Description: @Model.Description</p>
+        </div>
+    </div>
+
+    <div class="row" style="padding-right: 2em">
+        <div class="col-xs-12 flex-container" style="padding-bottom: 1em">
+            @if (Model.Purchased == "1")
+            {
+                <label>Unavailable - Sold</label>
+            }
+            else
+            {
+                <button type="button"><a href="@Url.Action("Contact","Home", new { VINNumber = Model.VINNumber })">Contact Us</a></button>
+            }
+        </div>
+    </div>
+</div>
+
+
